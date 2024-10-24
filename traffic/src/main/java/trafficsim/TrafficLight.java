@@ -15,8 +15,6 @@ import java.util.logging.Logger;
 public class TrafficLight implements ActionListener{
 	
 	private Image layoutImg;	//the layout image of the traffic light which would have transparent hole for light
-	private Timer tm;
-	private Vector2 position;
 	final AffineTransform trans;
 	final ImageObserver imObs;
 	final int id;
@@ -67,6 +65,8 @@ public class TrafficLight implements ActionListener{
 
 	private static final Logger logger = Logger.getLogger(TrafficLight.class.getName());
 	public TrafficLight(InputStream imgSrc, int x, int y, int angle, int orient, int id, ImageObserver iObs){
+		Timer tm;
+		Vector2 position;
 		imObs = iObs;
 		trans = new AffineTransform();
 		orientation = orient;
@@ -83,7 +83,7 @@ public class TrafficLight implements ActionListener{
 			tm = new Timer(1, this);
 			position = new Vector2(x,y);
 			trans.setToTranslation(position.x, position.y);
-			trans.rotate(Math.toRadians(angle), layoutImg.getWidth(imObs)/2, layoutImg.getHeight(imObs)/2);
+			trans.rotate(Math.toRadians(angle), (double) layoutImg.getWidth(imObs) /2, (double) layoutImg.getHeight(imObs) /2);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			logger.log(Level.SEVERE, "Failed to load images", e);
