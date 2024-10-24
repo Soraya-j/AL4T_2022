@@ -177,7 +177,7 @@ public class Simulation extends JPanel implements ActionListener {
 							}
 							carImageId = random.nextInt(carImages.length);
 							//int spd = 7- random.nextInt(2);
-							if(vehiclesRight.size() > 0 && vAheadID < vehiclesRight.size())
+							if(!vehiclesRight.isEmpty() && vAheadID < vehiclesRight.size())
 								vehiclesRight.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), 6, VehicleState.MOVE_X, VehicleDirection.RIGHT, trafficLights.get(1), this, vehiclesRight.get(vAheadID), vehiclesRight.size()));
 							else
 								vehiclesRight.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), 6, VehicleState.MOVE_X, VehicleDirection.RIGHT, trafficLights.get(1), this, null, vehiclesRight.size()));
@@ -205,12 +205,9 @@ public class Simulation extends JPanel implements ActionListener {
 							}
 							
 							carImageId = random.nextInt(carImages.length);
-							if(carImageId < 0){
-								carImageId = 0;
-							}
 							int spd = 7- random.nextInt(2);
 							//System.out.println("line: " +line + " vehicle: "+vehiclesDown.size() + "vAheadId: " +vAheadID);
-							if(vehiclesDown.size() > 0 && vAheadID < vehiclesDown.size())
+							if(!vehiclesDown.isEmpty() && vAheadID < vehiclesDown.size())
 								vehiclesDown.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_Y, VehicleDirection.DOWN, trafficLights.get(0), this, vehiclesDown.get(vAheadID), vehiclesDown.size()));
 							else
 								vehiclesDown.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_Y, VehicleDirection.DOWN, trafficLights.get(0), this, null, vehiclesDown.size()));
