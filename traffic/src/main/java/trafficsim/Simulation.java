@@ -160,19 +160,14 @@ public class Simulation extends JPanel implements ActionListener {
 						if(vehiclesDown.size() < 20){
 							int line = (vehiclesDown.size())/3;
 							int laneID = vehiclesDown.size()%3;
-							
+
 							if(line > 0){
-								switch(laneID){
-								case 0:
-									vAheadID = 3*line - 3;
-									break;
-								case 1:
-									vAheadID = 3*line - 2;
-									break;
-								case 2:
-									vAheadID = 3*line - 1;
-									break;
-								}
+								vAheadID = switch(laneID){
+								case 0 -> 3*line - 3;
+								case 1 -> 3*line - 2;
+								case 2 -> 3*line - 1;
+								default -> throw new IllegalArgumentException("Invalid laneID: " + laneID);
+								};
 							}
 							
 							carImageId = random.nextInt(carImages.length);
@@ -188,17 +183,12 @@ public class Simulation extends JPanel implements ActionListener {
 							int laneID = vehiclesLeft.size()%3;
 							
 							if(line > 0){
-								switch(laneID){
-								case 0:
-									vAheadID = 3*line - 3;
-									break;
-								case 1:
-									vAheadID = 3*line - 2;
-									break;
-								case 2:
-									vAheadID = 3*line - 1;
-									break;
-								}
+								vAheadID = switch(laneID){
+								case 0 -> 3*line - 3;
+								case 1 -> 3*line - 2;
+								case 2 -> 3*line - 1;
+								default -> throw new IllegalArgumentException("Invalid laneID: " + laneID);
+								};
 							}
 							carImageId = random.nextInt(carImages.length);
 							int spd = 7- random.nextInt(2);
