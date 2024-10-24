@@ -230,7 +230,7 @@ public class Simulation extends JPanel implements ActionListener {
 	
 	public Simulation(){
 
-		trafficLights = new ArrayList<TrafficLight>();
+		trafficLights = new ArrayList<>();
 		
 		TrafficLight t1 = new TrafficLight(getClass().getResourceAsStream("/trafficLight.png"), 349, 147, 180, 0, 1, this);
 		t1.setLeft_light_pos(new Vector2(349,147));
@@ -261,10 +261,10 @@ public class Simulation extends JPanel implements ActionListener {
 		v3 = new Vehicle(getClass().getResourceAsStream("/car1.jpg"), 6, VehicleState.MOVE_X, VehicleDirection.LEFT, trafficLights.get(3),this, null, 0);
 		v4 = new Vehicle(getClass().getResourceAsStream("/car1.jpg"), 5, VehicleState.MOVE_Y, VehicleDirection.UP, trafficLights.get(2),this, null, 0);
 		
-		vehiclesRight = new ArrayList<Vehicle>();
-		vehiclesLeft = new ArrayList<Vehicle>();
-		vehiclesDown = new ArrayList<Vehicle>();
-		vehiclesUp = new ArrayList<Vehicle>();
+		vehiclesRight = new ArrayList<>();
+		vehiclesLeft = new ArrayList<>();
+		vehiclesDown = new ArrayList<>();
+		vehiclesUp = new ArrayList<>();
 		vehiclesRight.add(v1); vehiclesDown.add(v2); vehiclesLeft.add(v3); vehiclesUp.add(v4);
 		
 		
