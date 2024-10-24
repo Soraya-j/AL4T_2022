@@ -153,7 +153,7 @@ public class Simulation extends JPanel implements ActionListener {
 				if(carSpawnTimer%500 == 0){
 				//create new car objects over here
 					
-					int carImageId = 0;
+					int carImageId;
 					int vAheadID = 1000;
 					for(int i = 0;i <20; i++){
 						if(vehiclesRight.size() < 30){
@@ -176,9 +176,6 @@ public class Simulation extends JPanel implements ActionListener {
 								vAheadID = vehiclesRight.size() - 3;
 							}
 							carImageId = random.nextInt(carImages.length);
-							if(carImageId < 0){
-								carImageId = 0;
-							}
 							//int spd = 7- random.nextInt(2);
 							if(vehiclesRight.size() > 0 && vAheadID < vehiclesRight.size())
 								vehiclesRight.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), 6, VehicleState.MOVE_X, VehicleDirection.RIGHT, trafficLights.get(1), this, vehiclesRight.get(vAheadID), vehiclesRight.size()));
