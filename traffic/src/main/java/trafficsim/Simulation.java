@@ -223,7 +223,7 @@ public class Simulation extends JPanel implements ActionListener {
 	
 	//simple function to test our steering
 	//**
-	// * @param angle the final angle you want the car to positioned at relative to the normal
+	// * @param angle the final angle you want the car to position at relative to the normal
 	// * @param t the time in seconds you want the car to take to position itself at "angle"*/
 	private void steerTowards(){
 		//first we calculate the angular velocity required to get the vehicle to angle in time t

@@ -9,22 +9,25 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TrafficLight implements ActionListener{
 	
 	private Image layoutImg;	//the layout image of the traffic light which would have transparent hole for light
 	private Timer tm;
 	private Vector2 position;
-	private AffineTransform trans;
-	private ImageObserver imObs;
-	private int id, timer =0;
-	private Color[] currentLightColor;
+	final AffineTransform trans;
+	final ImageObserver imObs;
+	final int id;
+	private int timer = 0;
+	final Color[] currentLightColor;
 	//Individual light positions
 	private Vector2 left_light_pos;
 	private Vector2 right_light_pos;
 	private Vector2 forward_pos;
-	private int trafficTime = 5;
-	private int orientation; // 0 -Horizontal, 1-Vertical
+	final int trafficTime = 5;
+	final int orientation; // 0 -Horizontal, 1-Vertical
 	public Vector2 getLeft_light_pos() {
 		return left_light_pos;
 	}
@@ -55,14 +58,14 @@ public class TrafficLight implements ActionListener{
 	}
 
 
-	public enum TrafficState{RED, YELLOW, GREEN};
 	public boolean leftGo, forwardGo, rightGo;
 	/*Constant state
 	 * Red = 0
 	 * Yellow = 1
 	 * Green = 2
 	 * */
-	
+
+	private static final Logger logger = Logger.getLogger(TrafficLight.class.getName());
 	public TrafficLight(InputStream imgSrc, int x, int y, int angle, int orient, int id, ImageObserver iObs){
 		imObs = iObs;
 		trans = new AffineTransform();
@@ -83,7 +86,7 @@ public class TrafficLight implements ActionListener{
 			trans.rotate(Math.toRadians(angle), layoutImg.getWidth(imObs)/2, layoutImg.getHeight(imObs)/2);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "Failed to load images", e);
 		}
 		
 		tm.start();
@@ -99,28 +102,9 @@ public class TrafficLight implements ActionListener{
 		return trans;
 	}
 
-	public void setTrans(AffineTransform trans) {
-		this.trans = trans;
-	}
-
-
-	
 	public Image getLayoutImg() {
 		return layoutImg;
 	}
-
-	public void setLayoutImg(Image layoutImg) {
-		this.layoutImg = layoutImg;
-	}
-
-	public Vector2 getPosition() {
-		return position;
-	}
-
-	public void setPosition(Vector2 position) {
-		this.position = position;
-	}
-
 
 	public Color[] getCurrentLightColor() {
 		return currentLightColor;
@@ -180,11 +164,7 @@ public class TrafficLight implements ActionListener{
 		}
 		
 		if(id == 3){
-			/*if(timer >150 && timer < 900){
-				currentLightColor[2] = Color.yellow;
-				currentLightColor[1] = Color.yellow;
-			}*/
-			 if(timer > 550 && timer < (trafficTime*1000)-700){
+			if(timer > 550 && timer < (trafficTime*1000)-700){
 				leftGo = false;
 				forwardGo = true;
 				rightGo=true;
