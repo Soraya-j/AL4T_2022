@@ -13,6 +13,7 @@ import java.awt.event.WindowListener;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -272,8 +273,8 @@ public class Simulation extends JPanel implements ActionListener {
 		vehiclesRight.add(v1); vehiclesDown.add(v2); vehiclesLeft.add(v3); vehiclesUp.add(v4);
 
 		try {
-			car1 = ImageIO.read(getClass().getResourceAsStream("/car1.jpg"));
-			mTerrain = ImageIO.read(getClass().getResourceAsStream("/road1.jpg"));
+			car1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/car1.jpg")));
+			mTerrain = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/road1.jpg")));
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Failed to load images", e);
 		}
