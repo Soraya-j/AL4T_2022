@@ -14,6 +14,9 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 public class Simulation extends JPanel implements ActionListener {
@@ -227,7 +230,8 @@ public class Simulation extends JPanel implements ActionListener {
 		if(Math.abs(mAngle) < 450)
 			mAngle += 3.75f;
 	}
-	
+
+	private static final Logger logger = Logger.getLogger(Simulation.class.getName());
 	public Simulation(){
 
 		trafficLights = new ArrayList<>();
@@ -266,16 +270,13 @@ public class Simulation extends JPanel implements ActionListener {
 		vehiclesDown = new ArrayList<>();
 		vehiclesUp = new ArrayList<>();
 		vehiclesRight.add(v1); vehiclesDown.add(v2); vehiclesLeft.add(v3); vehiclesUp.add(v4);
-		
-		
+
 		try {
 			car1 = ImageIO.read(getClass().getResourceAsStream("/car1.jpg"));
 			mTerrain = ImageIO.read(getClass().getResourceAsStream("/road1.jpg"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "Failed to load images", e);
 		}
-
 	}
 	
 	public static void main(String[] args){
