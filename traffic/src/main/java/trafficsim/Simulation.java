@@ -161,18 +161,6 @@ public class Simulation extends JPanel implements ActionListener {
 							//int laneID = vehiclesLeft.size()%3;
 							
 							if(line > 0){
-								/*switch(laneID){
-								case 0:
-									vAheadID = 3*line - 3;
-									break;
-								case 1:
-									vAheadID = 3*line - 2;
-									break;
-								case 2:
-									vAheadID = 3*line - 1;
-									break;
-								}*/
-								
 								vAheadID = vehiclesRight.size() - 3;
 							}
 							carImageId = random.nextInt(carImages.length);
@@ -247,18 +235,6 @@ public class Simulation extends JPanel implements ActionListener {
 							//int laneID = vehiclesUp.size()%3;
 							
 							if(line > 0){
-								/*switch(laneID){
-								case 0:
-									vAheadID = 3*line - 3;
-									break;
-								case 1:
-									vAheadID = 3*line - 2;
-									break;
-								case 2:
-									vAheadID = 3*line - 1;
-									break;
-								}*/
-								
 								vAheadID = vehiclesUp.size() - 3;
 							}
 							carImageId = random.nextInt(carImages.length);
