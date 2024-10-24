@@ -21,24 +21,24 @@ public class Simulation extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	private Image car1;
 	private Image mTerrain;
-	private Timer tm = new Timer(1, this);
+	final Timer tm = new Timer(1, this);
 	private int x = 0, velX = 2;
 	private float mAngle = 0;
 	
-	private Random random = new Random();
+	final Random random = new Random();
 	//Arrays of vehicles in each direction
-	private ArrayList<Vehicle> vehiclesRight;
-	private ArrayList<Vehicle> vehiclesDown;
-	private ArrayList<Vehicle> vehiclesLeft;
-	private ArrayList<Vehicle> vehiclesUp;
+	final ArrayList<Vehicle> vehiclesRight;
+	final ArrayList<Vehicle> vehiclesDown;
+	final ArrayList<Vehicle> vehiclesLeft;
+	final ArrayList<Vehicle> vehiclesUp;
 	
-	private String[] carImages = {"/car1.png", "/car2.png", "/car3.png", "/car4.png",
+	final String[] carImages = {"/car1.png", "/car2.png", "/car3.png", "/car4.png",
 			"/ambulance.png", "/police.png", "/truck1.png", "/truck2.png"};
 	
-	private ArrayList<TrafficLight> trafficLights;
+	final ArrayList<TrafficLight> trafficLights;
 	private int carSpawnTimer = 0;					//timer regulating the rate new cars are created
 	
 	Vehicle v1, v2, v3, v4;
