@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-
 public class Simulation extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -42,7 +41,7 @@ public class Simulation extends JPanel implements ActionListener {
 	private int carSpawnTimer = 0;					//timer regulating the rate new cars are created
 	
 	Vehicle v1, v2, v3, v4;
-	float move=0;
+	double move=0;
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -50,8 +49,7 @@ public class Simulation extends JPanel implements ActionListener {
 		
 		g2D.drawImage(mTerrain,0,0,this);
 		g2D.drawImage(v1.getImage(), v1.getTrans(), this);
-		//g2D.drawImage(v2.getImage(), v2.getVehiclePosition().x, v2.getVehiclePosition().y, this);
-		
+
 		//displays all cars going in the right direction
 		for(int i=0; i<vehiclesRight.size(); i++){
 			Vehicle v = vehiclesRight.get(i);
@@ -59,7 +57,6 @@ public class Simulation extends JPanel implements ActionListener {
 				g2D.drawImage(v.getImage(), v.getTrans(), this);
 			else{
 				vehiclesRight.remove(v);
-				//System.out.println("Removed vehicle");
 			}
 		}
 		
@@ -70,7 +67,6 @@ public class Simulation extends JPanel implements ActionListener {
 				g2D.drawImage(v.getImage(), v.getTrans(), this);
 			else{
 				vehiclesLeft.remove(v);
-				//System.out.println("Removed vehicle");
 			}
 		}
 		
@@ -81,7 +77,6 @@ public class Simulation extends JPanel implements ActionListener {
 				g2D.drawImage(v.getImage(), v.getTrans(), this);
 			else{
 				vehiclesDown.remove(v);
-				//System.out.println("Removed vehicle");
 			}
 		}
 		
@@ -92,7 +87,6 @@ public class Simulation extends JPanel implements ActionListener {
 				g2D.drawImage(v.getImage(), v.getTrans(), this);
 			else{
 				vehiclesUp.remove(v);
-				//System.out.println("Removed vehicle");
 			}
 		}
 		AffineTransform identity = g2D.getTransform();
@@ -106,7 +100,7 @@ public class Simulation extends JPanel implements ActionListener {
 		//Draw trafficLights
 		for(TrafficLight t: trafficLights){
 			//Draw the lights
-			Color colors[] = t.getCurrentLightColor();
+			Color[] colors = t.getCurrentLightColor();
 			if(t.getOrientation() == 0){
 				g2D.setColor(colors[1]);
 				g2D.fillRect(t.getForward_pos().x, t.getForward_pos().y, 21, 29);
@@ -123,10 +117,7 @@ public class Simulation extends JPanel implements ActionListener {
 				g2D.fillRect(t.getRight_light_pos().x, t.getRight_light_pos().y, 29, 22);
 			}
 			g2D.drawImage(t.getLayoutImg(), t.getTrans(), this);
-				
 		}
-		
-		
 		if(!tm.isRunning())
 			tm.start();
 	}
@@ -146,9 +137,7 @@ public class Simulation extends JPanel implements ActionListener {
 		else
 			move += 2;
 		steerTowards();
-		
-		
-		
+
 		//This section is where cars are created, every 800s
 				if(carSpawnTimer%500 == 0){
 				//create new car objects over here
@@ -158,20 +147,16 @@ public class Simulation extends JPanel implements ActionListener {
 					for(int i = 0;i <20; i++){
 						if(vehiclesRight.size() < 30){
 							int line = (vehiclesRight.size())/3;
-							//int laneID = vehiclesLeft.size()%3;
 							
 							if(line > 0){
 								vAheadID = vehiclesRight.size() - 3;
 							}
 							carImageId = random.nextInt(carImages.length);
-							//int spd = 7- random.nextInt(2);
 							if(!vehiclesRight.isEmpty() && vAheadID < vehiclesRight.size())
 								vehiclesRight.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), 6, VehicleState.MOVE_X, VehicleDirection.RIGHT, trafficLights.get(1), this, vehiclesRight.get(vAheadID), vehiclesRight.size()));
 							else
 								vehiclesRight.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), 6, VehicleState.MOVE_X, VehicleDirection.RIGHT, trafficLights.get(1), this, null, vehiclesRight.size()));
-							
 						}
-						
 						if(vehiclesDown.size() < 20){
 							int line = (vehiclesDown.size())/3;
 							int laneID = vehiclesDown.size()%3;
@@ -188,13 +173,10 @@ public class Simulation extends JPanel implements ActionListener {
 									vAheadID = 3*line - 1;
 									break;
 								}
-								
-								//vAheadID = vehiclesDown.size() - 3;
 							}
 							
 							carImageId = random.nextInt(carImages.length);
 							int spd = 7- random.nextInt(2);
-							//System.out.println("line: " +line + " vehicle: "+vehiclesDown.size() + "vAheadId: " +vAheadID);
 							if(!vehiclesDown.isEmpty() && vAheadID < vehiclesDown.size())
 								vehiclesDown.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_Y, VehicleDirection.DOWN, trafficLights.getFirst(), this, vehiclesDown.get(vAheadID), vehiclesDown.size()));
 							else
@@ -217,12 +199,9 @@ public class Simulation extends JPanel implements ActionListener {
 									vAheadID = 3*line - 1;
 									break;
 								}
-								
-								//vAheadID = vehiclesLeft.size() - 3;
 							}
 							carImageId = random.nextInt(carImages.length);
 							int spd = 7- random.nextInt(2);
-							//System.out.println("vAheadID: " +vAheadID + "carImageId: "+carImageId + "vehicles: " + vehiclesLeft.size());
 							if(!vehiclesLeft.isEmpty() && vAheadID < vehiclesLeft.size())
 								vehiclesLeft.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_X, VehicleDirection.LEFT, trafficLights.get(3),this, vehiclesLeft.get(vAheadID), vehiclesLeft.size()));
 							else
@@ -230,9 +209,7 @@ public class Simulation extends JPanel implements ActionListener {
 						}
 						
 						if(vehiclesUp.size() < 30){
-							//System.out.println("up size: " +vehiclesUp.size());
 							int line = (vehiclesUp.size())/3;
-							//int laneID = vehiclesUp.size()%3;
 							
 							if(line > 0){
 								vAheadID = vehiclesUp.size() - 3;
@@ -248,7 +225,6 @@ public class Simulation extends JPanel implements ActionListener {
 			
 			carSpawnTimer = 0;
 		}
-		
 		repaint();
 	}
 	
@@ -258,13 +234,8 @@ public class Simulation extends JPanel implements ActionListener {
 	// * @param t the time in seconds you want the car to take to position itself at "angle"*/
 	private void steerTowards(){
 		//first we calculate the angular velocity required to get the vehicle to angle in time t
-		float angle = 450;
-		float t = 120;
-		float angularVel = angle/t;
-		
-		if(Math.abs(mAngle) < Math.abs(angle))	
-			mAngle += angularVel;
-		
+		if(Math.abs(mAngle) < 450)
+			mAngle += 3.75f;
 	}
 	
 	public Simulation(){
@@ -317,7 +288,7 @@ public class Simulation extends JPanel implements ActionListener {
 
 	}
 	
-	public static void main(String args[]){
+	public static void main(String[] args){
 	
 		JFrame jF = new JFrame("Traffic Simulation");
 		Simulation sim = new Simulation();
