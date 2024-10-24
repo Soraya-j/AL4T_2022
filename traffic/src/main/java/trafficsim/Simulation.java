@@ -208,9 +208,9 @@ public class Simulation extends JPanel implements ActionListener {
 							int spd = 7- random.nextInt(2);
 							//System.out.println("line: " +line + " vehicle: "+vehiclesDown.size() + "vAheadId: " +vAheadID);
 							if(!vehiclesDown.isEmpty() && vAheadID < vehiclesDown.size())
-								vehiclesDown.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_Y, VehicleDirection.DOWN, trafficLights.get(0), this, vehiclesDown.get(vAheadID), vehiclesDown.size()));
+								vehiclesDown.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_Y, VehicleDirection.DOWN, trafficLights.getFirst(), this, vehiclesDown.get(vAheadID), vehiclesDown.size()));
 							else
-								vehiclesDown.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_Y, VehicleDirection.DOWN, trafficLights.get(0), this, null, vehiclesDown.size()));
+								vehiclesDown.add(new Vehicle(getClass().getResourceAsStream(carImages[carImageId]), spd, VehicleState.MOVE_Y, VehicleDirection.DOWN, trafficLights.getFirst(), this, null, vehiclesDown.size()));
 						}
 						
 						if(vehiclesLeft.size() < 30){
