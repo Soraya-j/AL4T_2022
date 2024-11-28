@@ -12,7 +12,7 @@ public class Main {
         jF.setSize(1366, 750);
         jF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jF.setVisible(true);
-        final SoundManager soundManager = new SoundManager();
+        final SoundManager soundManager = SoundManager.createDefault();
         soundManager.play();
         jF.addWindowListener(new WindowListener() {
             public void windowOpened(WindowEvent e) {

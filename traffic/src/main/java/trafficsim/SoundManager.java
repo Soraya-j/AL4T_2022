@@ -2,26 +2,15 @@ package trafficsim;
 
 import javax.sound.sampled.*;
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.Objects;
 
 public class SoundManager implements Closeable {
     private final Clip clip;
     private final Clip driftClip;
 
-    public SoundManager() {
-        Clip clip = null;
-        Clip driftClip = null;
-        try {
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/Traffic Sounds - Free Sound Effects - Traffic Sound Clips - Sound Bites.wav")));
-            AudioInputStream driftStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/drift.wav")));
-            clip = AudioSystem.getClip();
-            driftClip = AudioSystem.getClip();
-            clip.open(inputStream);
-            driftClip.open(driftStream);
-        } catch (NullPointerException | UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
+    public SoundManager(Clip clip, Clip driftClip) {
+        if (clip == null || driftClip == null) {
+            throw new IllegalArgumentException("clips can not be null !");
         }
         this.clip = clip;
         this.driftClip = driftClip;
@@ -36,5 +25,20 @@ public class SoundManager implements Closeable {
     public void close() {
         clip.close();
         driftClip.close();
+    }
+    public static SoundManager createDefault(){
+        try {
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(SoundManager.class.getResourceAsStream("/Traffic Sounds - Free Sound Effects - Traffic Sound Clips - Sound Bites.wav")));
+            // " Free Sound Effects - Traffic Sound Clips - Sound Bites.wav"
+            AudioInputStream driftStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(SoundManager.class.getResourceAsStream("/drift.wav")));
+            Clip clip = AudioSystem.getClip();
+            Clip driftClip = AudioSystem.getClip();
+            clip.open(inputStream);
+            driftClip.open(driftStream);
+
+            return new SoundManager(clip, driftClip);
+        } catch (Exception e) {
+            throw new RuntimeException("Error", e);
+        }
     }
 }
