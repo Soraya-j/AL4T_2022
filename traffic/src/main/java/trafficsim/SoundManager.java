@@ -26,6 +26,7 @@ public class SoundManager implements Closeable {
         clip.close();
         driftClip.close();
     }
+
     public static SoundManager createDefault(){
         try {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(SoundManager.class.getResourceAsStream("/Traffic Sounds - Free Sound Effects - Traffic Sound Clips - Sound Bites.wav")));
